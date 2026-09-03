@@ -1,0 +1,73 @@
+1. ¿CUÁL ES EL PUNTO MÁS DÉBIL DE PGP?
+
+Compromiso y almacenamiento de la Clave Privada:
+
+Usabilidad y complejidad para el usuario final:
+como firmar o cifrar con claves erróneas, perder sus claves sin un
+certificado de revocación previo, o enviar metadatos no cifrados 
+
+2. ¿CUÁNDO ES CONVENIENTE UTILIZAR SOLAMENTE CIFRADO SIMÉTRICO?
+
+El cifrado simétrico (donde se utiliza la misma clave tanto para cifrar como para
+descifrar) es conveniente y recomendado en los siguientes escenarios:
+
+a) Almacenamiento de datos en reposo 
+   Cuando se cifran discos duros, particiones, bases de datos o archivos locales
+   (por ejemplo, BitLocker, LUKS o FileVault). Al no requerir compartir la clave
+   con terceros en la red, el cifrado simétrico ofrece la máxima eficiencia.
+
+b) Entornos donde se requiere alto rendimiento y velocidad:
+   Los algoritmos simétricos (como AES, ChaCha20) son órdenes de magnitud más
+   rápidos en términos computacionales y requieren mucho menos procesamiento que
+   los algoritmos asimétricos (como RSA o ECC).
+
+c) Transmisión masiva de datos tras el intercambio inicial de claves:
+   En protocolos híbridos como TLS/SSL o SSH, la criptografía asimétrica se usa
+   únicamente para autenticar las partes y acordar una clave compartida.
+   Una vez establecida la sesión, TODO el tráfico masivo de datos se cifra de
+   forma simétrica debido a su velocidad e impacto mínimo en la latencia.
+
+d) Redes/Dispositivos cerrados o con recursos limitados:
+   En sistemas embebidos, IoT o redes cerradas donde la clave compartida se puede
+   distribuir de forma segura durante la fase de aprovisionamiento previo.
+
+
+3. ¿EN QUÉ CONSISTE EL CICLO DE VIDA DEL DESARROLLO DE SOFTWARE SEGURO (S-SDLC)?
+-------------------------------------------------------------------------------
+
+1. Fase de Requisitos e Identificación:
+   - Definición de requisitos funcionales y no funcionales de seguridad.
+   - Análisis del marco legal y regulatorio aplicable (GDPR, PCI-DSS, HIPAA, etc.).
+   - Elaboración de un perfil de riesgos del proyecto.
+
+2. Fase de Diseño y Modelado de Amenazas (Threat Modeling):
+   - Definición de la arquitectura de seguridad y componentes de confianza.
+   - Realización de modelado de amenazas (identificación de vectores de ataque,
+     superficie de ataque y uso de metodologías como STRIDE).
+   - Establecimiento de controles de mitigación y patrones de diseño seguros.
+
+3. Fase de Implementación y Codificación Segura:
+   - Adopción de estándares de codificación segura (ej. OWASP Secure Coding Practices).
+   - Análisis estático de código fuente (SAST - Static Application Security Testing)
+     en tiempo de compilación/integración.
+   - Gestión de dependencias y componentes de terceros (análisis de SCA para prevenir
+     vulnerabilidades de cadena de suministro).
+
+4. Fase de Pruebas y Verificación (Testing):
+   - Análisis dinámico de seguridad (DAST - Dynamic Application Security Testing).
+   - Pruebas de penetración (Penetration Testing) y análisis de vulnerabilidades.
+   - Fuzzing / Pruebas de robustez ante entradas maliciosas o inesperadas.
+
+5. Fase de Despliegue y Configuración Segura:
+   - Bastionado (Hardening) de servidores, contenedores y entornos de producción.
+   - Verificación de la configuración de seguridad y mínimos privilegios.
+   - Despliegue automatizado mediante pipelines CI/CD seguros.
+
+6. Fase de Operación, Mantenimiento y Respuesta a Incidentes:
+   - Monitoreo continuo de seguridad (logging, auditoría y SIEM).
+   - Gestión de parches de seguridad y vulnerabilidades emergentes.
+   - Ejecución del plan de respuesta a incidentes en caso de brechas de seguridad.
+
+7. Fase de Retiro / Desmantelamiento (Decommissioning):
+   - Borrado seguro y sanitización de datos confidenciales/sensibles.
+   - Revocación de accesos, credenciales, claves criptográficas y certificados associados.
